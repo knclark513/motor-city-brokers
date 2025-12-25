@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor City Auto Brokers</title>
+    <!-- Google Fonts: Inter for that clean, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0f172a;      /* Deep Navy Blue */
+            --bg-card-dark: #1e293b; /* Slightly lighter navy for cards */
+            --accent: #d4af37;       /* Gold color matched to your logo */
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --text-dark: #1e293b;
+            --bg-light: #f8fafc;
+            --success: #10b981;      /* Green for checkmarks */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            background-color: white;
+            color: var(--text-dark);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: #f1f5f9;
+        }
+
+        .section-padding {
+            padding: 5rem 0;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 30px 30px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            width: 350px; /* Adjusted size for the new logo */
+            margin: 0 auto 2rem auto;
+            border-radius: 8px;
+            /* Removed white background box since your logo has a white background built-in or looks better clean */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 4rem;
+        }
+
+        .hero p.subtitle {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-footer {
+            margin-top: 4rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .hero-footer i { color: #10b981; font-size: 0.6rem; }
+
+        /* --- BENEFITS (SMART WAY) --- */
+        .benefits {
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+        }
+
+        .section-header h2 span {
+            font-weight: 800;
+        }
+
+        .section-header p {
+            color: #64748b;
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: #f8fafc;
+            padding: 2.5rem;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .bg-number {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 8rem;
+            font-weight: 900;
+            color: #e2e8f0;
+            opacity: 0.5;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .icon-blue { background-color: #3b82f6; }
+        .icon-green { background-color: #10b981; }
+        .icon-orange { background-color: var(--accent); }
+        .icon-purple { background-color: #8b5cf6; }
+
+        .benefit-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- PROCESS (HOW IT WORKS) --- */
+        .process {
+            background-color: var(--bg-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .process h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .process h2 span { font-weight: 300; }
+
+        .process-subtitle {
+            color: var(--text-gray);
+            margin-bottom: 4rem;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            right: 50px;
+            height: 1px;
+            background: #334155;
+            z-index: 0;
+        }
+
+        .step {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            padding: 0 1rem;
+        }
+
+        .step-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-card-dark);
+            border: 1px solid #334155;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: #000;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* --- FOUNDER --- */
+        .founder {
+            background-color: white;
+        }
+
+        .founder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .founder-img {
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .founder-content h4 {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .founder-content h2 span { font-weight: 300; }
+
+        .founder-content p {
+            color: #475569;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .credential {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .credential i {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            color: #475569;
+        }
+
+        .credential div h5 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .credential div span { font-size: 0.85rem; color: #64748b; }
+
+        .linkedin-link {
+            color: #2563eb;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact {
+            background-color: white;
+            padding-bottom: 8rem;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-left h4 {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-left h2 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #fff7ed;
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-text span {
+            display: block;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        .contact-text strong {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .contact-card {
+            background-color: var(--bg-dark);
+            padding: 3rem;
+            border-radius: 16px;
+            color: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .check-circle {
+            width: 24px;
+            height: 24px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .response-time {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-dark);
+            color: #94a3b8;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            width: 200px; /* Adjusted size for footer */
+            margin-bottom: 1.5rem;
+            /* Removed the filter that made it white, so the gold/black logo shows correctly */
+            background-color: white; /* Added white bg so black text is visible on dark footer */
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero h1 span { font-size: 3rem; }
+            .benefits-grid, .founder-grid, .contact-wrapper, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-steps {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .process-steps::before { display: none; }
+            .founder-img { order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-content">
+            <!-- LOGO: References local file 'logo.jpg' -->
+            <img src="logo.jpg" alt="Motor City Auto Brokers" class="hero-logo">
+            
+            <h1>Your Professional Advocate in <br><span>Car Buying</span></h1>
+            
+            <p class="subtitle">
+                We manage the entire car purchasing process on your behalf—saving you time, money, and the hassle of dealer negotiations.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Get Started Today</a>
+                <a href="#process" class="btn btn-outline">Learn More</a>
+            </div>
+
+            <div class="hero-footer">
+                <i class="fa-solid fa-circle"></i> Serving Michigan Since 2011
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section class="section-padding benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">WHY CHOOSE US</span>
+                <h2>The <span>Smart Way</span> to Buy a Car</h2>
+                <p>We transform the car buying experience from stressful to seamless, delivering exceptional value at every step.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <!-- Card 1 -->
+                <div class="benefit-card">
+                    <span class="bg-number">1</span>
+                    <span class="card-label">Saving Time</span>
+                    <div class="icon-box icon-blue"><i class="fa-regular fa-clock"></i></div>
+                    <h3>Convenience</h3>
+                    <p>Skip the time-consuming dealer lot visits. As professional car buyers, we handle everything seamlessly, so you don't have to.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="benefit-card">
+                    <span class="bg-number">2</span>
+                    <span class="card-label">Saving Money</span>
+                    <div class="icon-box icon-green"><i class="fa-solid fa-dollar-sign"></i></div>
+                    <h3>Negotiations</h3>
+                    <p>Our established dealer networks allow us to secure discounted pricing. Even with our fee factored in, you save substantially.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="benefit-card">
+                    <span class="bg-number">3</span>
+                    <span class="card-label">Getting What You Want</span>
+                    <div class="icon-box icon-orange"><i class="fa-regular fa-star"></i></div>
+                    <h3>Preferential Treatment</h3>
+                    <p>Enjoy perks unavailable to the public—including priority access to high-demand vehicles through our dealer relationships.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="benefit-card">
+                    <span class="bg-number">4</span>
+                    <span class="card-label">Buying With Confidence</span>
+                    <div class="icon-box icon-purple"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Peace of Mind</h3>
+                    <p>Have a professional advocate protecting your interests, shielding you from fraudulent activities and deceptive practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section id="process" class="section-padding process">
+        <div class="container">
+            <h4 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 1rem;">Our Process</h4>
+            <h2>How It <span>Works</span></h2>
+            <p class="process-subtitle">A simple, transparent process designed to put you in your dream car with zero stress.</p>
+
+            <div class="process-steps">
+                <!-- Step 1 -->
+                <div class="step">
+                    <div class="step-icon-wrapper">
+                        <i class="fa-regular fa-comment"></i>
+                        <span class="step-number">1</span>
+                    </div>
+                    <h3>Consultation</h3>
+                    <p>Tell us about your ideal vehicle, budget, and preferences. We'll discuss your needs and create a personalized search plan.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step">
+                    <div class="step-icon-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="step-number">2</span>
+                    </div>
+                    <h3>Vehicle Sourcing</h3>
+                    <p>We leverage our extensive dealer network to find the perfect vehicle that matches your exact specifications.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step">
+                    <div class="step-icon-wrapper">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span class="step-number">3</span>
+                    </div>
+                    <h3>Negotiation & Paperwork</h3>
+                    <p>We negotiate the best possible price and handle all the paperwork, financing arrangements, and documentation.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step">
+                    <div class="step-icon-wrapper">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span class="step-number">4</span>
+                    </div>
+                    <h3>Delivery</h3>
+                    <p>Your vehicle is delivered to you with everything ready—keys in hand, no surprises, just the joy of your new car.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDER SECTION -->
+    <section class="section-padding founder" id="founder">
+        <div class="container founder-grid">
+            <!-- FOUNDER PHOTO: References local file 'mike.jpg' -->
+            <img src="mike.jpg" alt="Michael D. Bishop" class="founder-img">
+            
+            <div class="founder-content">
+                <h4>Meet The Founder</h4>
+                <h2>Michael D. <span>Bishop</span></h2>
+                
+                <p>With a robust background in the automotive finance industry, Mike's proficiency lies in negotiating favorable terms and providing financial solutions tailored to individual needs.</p>
+                
+                <p>His ability to connect with clients, understand their unique circumstances, and structure creative financing options has consistently driven customer satisfaction and long-term loyalty. Mike's mission is simple: to make the car buying process straightforward, transparent, and achievable for every client.</p>
+
+                <div class="credential">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <div>
+                        <h5>Michigan State University</h5>
+                        <span>Graduate</span>
+                    </div>
+                </div>
+
+                <div class="credential">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <div>
+                        <h5>Automotive Finance Expert</h5>
+                        <span>Specializing in Sub-Prime & Traditional Financing</span>
+                    </div>
+                </div>
+
+                <a href="https://www.linkedin.com/in/michael-d-bishop-42518423/" target="_blank" class="linkedin-link"><i class="fa-brands fa-linkedin"></i> Connect on LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section-padding contact">
+        <div class="container contact-wrapper">
+            <div class="contact-left">
+                <h4>Get In Touch</h4>
+                <h2>Ready to Find Your<br>Perfect Car?</h2>
+                <p style="color: #64748b; margin-bottom: 2rem;">Let us handle the hard work of finding and negotiating your next vehicle. Contact us today for a free consultation.</p>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="contact-text">
+                        <span>Call Us Directly</span>
+                        <strong>(313) 779-3231</strong>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="contact-text">
+                        <span>Service Area</span>
+                        <strong>Metro Detroit, Michigan</strong>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="contact-text">
+                        <span>Email</span>
+                        <strong>mike.bishop2009@gmail.com</strong>
+                    </div>
+                </div>
+
+                <a href="tel:3137793231" class="btn btn-primary" style="margin-top: 1rem;">
+                    <i class="fa-solid fa-phone"></i> Call Now
+                </a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Free Consultation</h3>
+                <p>No obligation, no pressure</p>
+
+                <div class="check-item">
+                    <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                    <span>Personalized vehicle search</span>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                    <span>Expert price negotiation</span>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                    <span>Financing assistance available</span>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                    <span>All paperwork handled for you</span>
+                </div>
+
+                <div class="response-time">
+                    <i class="fa-regular fa-clock"></i> Typically respond within 24 hours
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <!-- FOOTER LOGO: References local file 'logo.jpg' -->
+                    <img src="logo.jpg" alt="Motor City Auto Brokers" class="footer-logo">
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Your trusted partner in the car buying process. Saving you time and money since 2011.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 8px;"></i> (313) 779-3231</li>
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i> Metro Detroit, Michigan</li>
+                        <li><i class="fa-brands fa-linkedin" style="margin-right: 8px;"></i> LinkedIn</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#process">Our Services</a></li>
+                        <li><a href="#founder">About Mike</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2025 Motor City Auto Brokers LLC. All rights reserved.</span>
+                <span>Michigan, U.S. Est. 2011</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
